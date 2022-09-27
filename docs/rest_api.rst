@@ -1945,6 +1945,1154 @@ getasynctaskresponse.json
 | Notes              |                                                                         |
 +--------------------+-------------------------------------------------------------------------+
 
+getfasttemplates.json
+``````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Retrieve list of FAST BIG-IP templates + custom template "service-discovery"                               |
++====================+============================================================================================================+
+| URL                | /getfasttemplates.json                                                                                     |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>"                                        |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443"                                                                                   |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | [                                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "name": "bigip-fast-templates/dns",                                                                        |
+|                    |                                                                                                            |
+|                    | "present": true                                                                                            |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "name": "bigip-fast-templates/http",                                                                       |
+|                    |                                                                                                            |
+|                    | "present": true                                                                                            |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "name": "service-discovery/http",                                                                          |
+|                    |                                                                                                            |
+|                    | "present": true                                                                                            |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection.                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+getfasttemplateschema.json
+```````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Retrieve the parameter schema for the specified template                                                   |
++====================+============================================================================================================+
+| URL                | /getfasttemplateschema.json                                                                                |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name":"<FAST template name>"                                                                              |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.22:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "name":"bigip-fast-templates/http"                                                                         |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "properties": {                                                                                            |
+|                    |                                                                                                            |
+|                    | "testTenant": {                                                                                            |
+|                    |                                                                                                            |
+|                    | "acceleration_profile_name": {                                                                             |
+|                    |                                                                                                            |
+|                    | "default": "/Common/webacceleration",                                                                      |
+|                    |                                                                                                            |
+|                    | "description": "Select an existing BIG-IP web acceleration profile.",                                      |
+|                    |                                                                                                            |
+|                    | "enum": [                                                                                                  |
+|                    |                                                                                                            |
+|                    | "/Common/apm-enduser-if-cache",                                                                            |
+|                    |                                                                                                            |
+|                    | "/Common/optimized-acceleration",                                                                          |
+|                    |                                                                                                            |
+|                    | "/Common/optimized-caching",                                                                               |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "options": {                                                                                               |
+|                    |                                                                                                            |
+|                    | "dependencies": {                                                                                          |
+|                    |                                                                                                            |
+|                    | "enable_acceleration": true,                                                                               |
+|                    |                                                                                                            |
+|                    | "make_acceleration_profile": false                                                                         |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "propertyOrder": 62,                                                                                       |
+|                    |                                                                                                            |
+|                    | "title": "Web Acceleration Profile",                                                                       |
+|                    |                                                                                                            |
+|                    | "type": "string"                                                                                           |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "app_name": {                                                                                              |
+|                    |                                                                                                            |
+|                    | "default": "",                                                                                             |
+|                    |                                                                                                            |
+|                    | "description": "The *application* is the low-level grouping in an AS3 declaration. FAST deploys all        |
+|                    |  configuration for a given application in a BIG-IP folder.                                                 |
+|                    |                                                                                                            |
+|                    | "maxLength": 255,                                                                                          |
+|                    |                                                                                                            |
+|                    | "minLength": 1,                                                                                            |
+|                    |                                                                                                            |
+|                    | "pattern": "^[A-Za-z][0-9A-Za-z_.-]*$",                                                                    |
+|                    |                                                                                                            |
+|                    | "propertyOrder": 1,                                                                                        |
+|                    |                                                                                                            |
+|                    | "title": "Application Name",                                                                               |
+|                    |                                                                                                            |
+|                    | "type": "string"                                                                                           |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "tenant_name":                                                                                             |
+|                    |                                                                                                            |
+|                    | "default": "",                                                                                             |
+|                    |                                                                                                            |
+|                    | "description": "The *tenant* is the high-level grouping in an AS3 declaration. FAST deploys all            |
+|                    |  configuration for a given tenant in a BIG-IP partition                                                    |
+|                    |                                                                                                            |
+|                    | "maxLength": 255,                                                                                          |
+|                    |                                                                                                            |
+|                    | "minLength": 1,                                                                                            |
+|                    |                                                                                                            |
+|                    | "pattern": "^[A-Za-z][0-9A-Za-z_.-]*$",                                                                    |
+|                    |                                                                                                            |
+|                    | "propertyOrder": 0,                                                                                        |
+|                    |                                                                                                            |
+|                    | "title": "Tenant Name",                                                                                    |
+|                    |                                                                                                            |
+|                    | "type": "string"                                                                                           |
+|                    |                                                                                                            |
+|                    | }, ...                                                                                                     |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "required": [                                                                                              |
+|                    |                                                                                                            |
+|                    | "app_name",                                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_acceleration",                                                                                     |
+|                    |                                                                                                            |
+|                    | "enable_compression",                                                                                      |
+|                    |                                                                                                            |
+|                    | "enable_multiplex",                                                                                        |
+|                    |                                                                                                            |
+|                    | "enable_pool",                                                                                             |
+|                    |                                                                                                            |
+|                    | "enable_redirect",                                                                                         |
+|                    |                                                                                                            |
+|                    | "enable_tls_client",                                                                                       |
+|                    |                                                                                                            |
+|                    | "endpoint_policy_names",                                                                                   |
+|                    |                                                                                                            |
+|                    | "irule_names",                                                                                             |
+|                    |                                                                                                            |
+|                    | "tenant_name",                                                                                             |
+|                    |                                                                                                            |
+|                    | "virtual_address",                                                                                         |
+|                    |                                                                                                            |
+|                    | "virtual_port",                                                                                            |
+|                    |                                                                                                            |
+|                    | "vlans_enable"                                                                                             |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "title": "HTTP Application Template",                                                                      |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "type": "object"                                                                                           |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection .                                                                  |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+updatefastdata.json
+````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Create/update FAST applications/partitions                                                                 |
++====================+============================================================================================================+
+| URL                | /updatefastdata.json                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name": "<FAST template name>",                                                                            |
+|                    |                                                                                                            |
+|                    | "parameters": {"<parameters>" }                                                                            |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443"                                                                                   |
+|                    |                                                                                                            |
+|                    | "name": "bigip-fast-templates/http",                                                                       |
+|                    |                                                                                                            |
+|                    | "parameters": {                                                                                            |
+|                    |                                                                                                            |
+|                    | "acceleration_profile_name": "/Common/webacceleration",                                                    |
+|                    |                                                                                                            |
+|                    | "app_name": "app23",                                                                                       |
+|                    |                                                                                                            |
+|                    | "common_tcp_profile": false,                                                                               |
+|                    |                                                                                                            |
+|                    | "compression_profile_name": "/Common/httpcompression",                                                     |
+|                    |                                                                                                            |
+|                    | "enable_acceleration": true,                                                                               |
+|                    |                                                                                                            |
+|                    | "enable_compression": true,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_fallback_persistence": true,                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_monitor": true,                                                                                    |
+|                    |                                                                                                            |
+|                    | "enable_multiplex": true,                                                                                  |
+|                    |                                                                                                            |
+|                    | "enable_persistence": true,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_pool": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_redirect": true,                                                                                   |
+|                    |                                                                                                            |
+|                    | "enable_snat": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_tls_client": false,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_tls_server": true,                                                                                 |
+|                    |                                                                                                            |
+|                    |                                                                                                            |
+|                    | "/Common/newnode"                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "fallback_persistence_type": "source-address",                                                             |
+|                    |                                                                                                            |
+|                    | "http_profile_name": "/Common/http",                                                                       |
+|                    |                                                                                                            |
+|                    | "irule_names": [                                                                                           |
+|                    |                                                                                                            |
+|                    | "/Common/VK",                                                                                              |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "load_balancing_mode": "least-connections-member",                                                         |
+|                    |                                                                                                            |
+|                    | "make_acceleration_profile": true,                                                                         |
+|                    |                                                                                                            |
+|                    | "make_compression_profile": true,                                                                          |
+|                    |                                                                                                            |
+|                    | "make_http_profile": true,                                                                                 |
+|                    |                                                                                                            |
+|                    | "make_monitor": true,                                                                                      |
+|                    |                                                                                                            |
+|                    | "make_multiplex_profile": true                                                                             |
+|                    |                                                                                                            |
+|                    | "make_pool": true,                                                                                         |
+|                    |                                                                                                            |
+|                    | "make_snatpool": true,                                                                                     |
+|                    |                                                                                                            |
+|                    | "make_tcp_egress_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "make_tcp_ingress_profile": true,                                                                          |
+|                    |                                                                                                            |
+|                    | "make_tcp_profile": true,                                                                                  |
+|                    |                                                                                                            |
+|                    | "make_tls_client_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "make_tls_server_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_credentials": false,                                                                              |
+|                    |                                                                                                            |
+|                    | "monitor_expected_response": "",                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_interval": 30,                                                                                    |
+|                    |                                                                                                            |
+|                    | "monitor_name": "/Common/https",                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_passphrase": "",                                                                                  |
+|                    |                                                                                                            |
+|                    | "monitor_send_string": "GET / HTTP/1.1\\r\\nHost: example.com\\r\\nConnection: Close\\r\\n\\r\\n",         |
+|                    |                                                                                                            |
+|                    | "monitor_username": "",                                                                                    |
+|                    |                                                                                                            |
+|                    | "multiplex_profile_name": "/Common/oneconnect",                                                            |
+|                    |                                                                                                            |
+|                    | "persistence_type": "cookie",                                                                              |
+|                    |                                                                                                            |
+|                    | "pool_members": [                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "connectionLimit": 0,                                                                                      |
+|                    |                                                                                                            |
+|                    | "priorityGroup": 0,                                                                                        |
+|                    |                                                                                                            |
+|                    | "serverAddresses": [                                                                                       |
+|                    |                                                                                                            |
+|                    | "10.0.0.1"                                                                                                 |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "servicePort": 80,                                                                                         |
+|                    |                                                                                                            |
+|                    | "shareNodes": true                                                                                         |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "pool_name": "",                                                                                           |
+|                    |                                                                                                            |
+|                    | "slow_ramp_time": 300,                                                                                     |
+|                    |                                                                                                            |
+|                    | "snat_addresses": [                                                                                        |
+|                    |                                                                                                            |
+|                    | "12.23.4.3"                                                                                                |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "snat_automap": true,                                                                                      |
+|                    |                                                                                                            |
+|                    | "snatpool_name": "",                                                                                       |
+|                    |                                                                                                            |
+|                    | "tcp_egress_profile_name": "/Common/f5-tcp-progressive",                                                   |
+|                    |                                                                                                            |
+|                    | "tcp_egress_topology": "lan",                                                                              |
+|                    |                                                                                                            |
+|                    | "tcp_ingress_profile_name": "/Common/f5-tcp-progressive",                                                  |
+|                    |                                                                                                            |
+|                    | "tcp_ingress_topology": "wan",                                                                             |
+|                    |                                                                                                            |
+|                    | "tcp_profile_name": "/Common/f5-tcp-progressive",                                                          |
+|                    |                                                                                                            |
+|                    | "tcp_topology": "wan",                                                                                     |
+|                    |                                                                                                            |
+|                    | "tenant_name": "Tenant1",                                                                                  |
+|                    |                                                                                                            |
+|                    | "tls_cert_name": "/Common/default.crt",                                                                    |
+|                    |                                                                                                            |
+|                    | "tls_client_profile_name": "/Common/serverssl",                                                            |
+|                    |                                                                                                            |
+|                    | "tls_key_name": "/Common/default.key",                                                                     |
+|                    |                                                                                                            |
+|                    | "tls_server_profile_name": "/Common/clientssl",                                                            |
+|                    |                                                                                                            |
+|                    | "virtual_address": "198.134.3.3",                                                                          |
+|                    |                                                                                                            |
+|                    | "virtual_port": 443,                                                                                       |
+|                    |                                                                                                            |
+|                    | "vlan_names": [],                                                                                          |
+|                    |                                                                                                            |
+|                    | "vlans_allow": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "vlans_enable": false,                                                                                     |
+|                    |                                                                                                            |
+|                    | "x_forwarded_for": true                                                                                    |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 202                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 202,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": {                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": "BIG-IP is processing the request. Please click 'Pending Tasks' icon to check the status of the |
+|                    |  pending request.",                                                                                        |
+|                    |                                                                                                            |
+|                    | "statuscode": 202,                                                                                         |
+|                    |                                                                                                            |
+|                    | "taskId": "0ec8ae38-7ea2-4b10-8523-a6c6705765ce"                                                           |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection.                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+updatefastdata.json
+````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Create/update FAST applications/partitions service-discovery template to support EP attach detach feature  |
++====================+============================================================================================================+
+| URL                | /updatefastdata.json                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name": "<FAST template name>",                                                                            |
+|                    |                                                                                                            |
+|                    | "parameters": {"<parameters>" }                                                                            |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443"                                                                                   |
+|                    |                                                                                                            |
+|                    | "name": "service-discovery/http",                                                                          |
+|                    |                                                                                                            |
+|                    | "parameters": {                                                                                            |
+|                    |                                                                                                            |
+|                    | "1_apic_service_discovery_tenant": "Demo",                                                                 |
+|                    |                                                                                                            |
+|                    | "2_apic_service_discovery_ap": "AppProfile",                                                               |
+|                    |                                                                                                            |
+|                    | "3_apic_service_discovery_epg": EPG-External,                                                              |
+|                    |                                                                                                            |
+|                    | "4_apic_service_discovery_port": 80,                                                                       |
+|                    |                                                                                                            |
+|                    | "acceleration_profile_name": "/Common/webacceleration",                                                    |
+|                    |                                                                                                            |
+|                    | "app_name": "app23",                                                                                       |
+|                    |                                                                                                            |
+|                    | "common_tcp_profile": false,                                                                               |
+|                    |                                                                                                            |
+|                    | "compression_profile_name": "/Common/httpcompression",                                                     |
+|                    |                                                                                                            |
+|                    | "enable_acceleration": true,                                                                               |
+|                    |                                                                                                            |
+|                    | "enable_compression": true,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_fallback_persistence": true,                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_monitor": true,                                                                                    |
+|                    |                                                                                                            |
+|                    | "enable_multiplex": true,                                                                                  |
+|                    |                                                                                                            |
+|                    | "enable_persistence": true,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_pool": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_redirect": true,                                                                                   |
+|                    |                                                                                                            |
+|                    | "enable_snat": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "enable_tls_client": false,                                                                                |
+|                    |                                                                                                            |
+|                    | "enable_tls_server": true,                                                                                 |
+|                    |                                                                                                            |
+|                    | "/Common/newnode"                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "fallback_persistence_type": "source-address",                                                             |
+|                    |                                                                                                            |
+|                    | "http_profile_name": "/Common/http",                                                                       |
+|                    |                                                                                                            |
+|                    | "irule_names": [                                                                                           |
+|                    |                                                                                                            |
+|                    | "/Common/VK",                                                                                              |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "load_balancing_mode": "least-connections-member",                                                         |
+|                    |                                                                                                            |
+|                    | "make_acceleration_profile": true,                                                                         |
+|                    |                                                                                                            |
+|                    | "make_compression_profile": true,                                                                          |
+|                    |                                                                                                            |
+|                    | "make_http_profile": true,                                                                                 |
+|                    |                                                                                                            |
+|                    | "make_monitor": true,                                                                                      |
+|                    |                                                                                                            |
+|                    | "make_multiplex_profile": true                                                                             |
+|                    |                                                                                                            |
+|                    | "make_pool": true,                                                                                         |
+|                    |                                                                                                            |
+|                    | "make_snatpool": true,                                                                                     |
+|                    |                                                                                                            |
+|                    | "make_tcp_egress_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "make_tcp_ingress_profile": true,                                                                          |
+|                    |                                                                                                            |
+|                    | "make_tcp_profile": true,                                                                                  |
+|                    |                                                                                                            |
+|                    | "make_tls_client_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "make_tls_server_profile": true,                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_credentials": false,                                                                              |
+|                    |                                                                                                            |
+|                    | "monitor_expected_response": "",                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_interval": 30,                                                                                    |
+|                    |                                                                                                            |
+|                    | "monitor_name": "/Common/https",                                                                           |
+|                    |                                                                                                            |
+|                    | "monitor_passphrase": "",                                                                                  |
+|                    |                                                                                                            |
+|                    | "monitor_send_string": "GET / HTTP/1.1\\r\\nHost: example.com\\r\\nConnection: Close\\r\\n\\r\\n",         |
+|                    |                                                                                                            |
+|                    | "monitor_username": "",                                                                                    |
+|                    |                                                                                                            |
+|                    | "multiplex_profile_name": "/Common/oneconnect",                                                            |
+|                    |                                                                                                            |
+|                    | "persistence_type": "cookie",                                                                              |
+|                    |                                                                                                            |
+|                    | "pool_members": [                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "connectionLimit": 0,                                                                                      |
+|                    |                                                                                                            |
+|                    | "priorityGroup": 0,                                                                                        |
+|                    |                                                                                                            |
+|                    | "serverAddresses": [                                                                                       |
+|                    |                                                                                                            |
+|                    | "10.0.0.1"                                                                                                 |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "servicePort": 80,                                                                                         |
+|                    |                                                                                                            |
+|                    | "shareNodes": true                                                                                         |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "pool_name": "",                                                                                           |
+|                    |                                                                                                            |
+|                    | "slow_ramp_time": 300,                                                                                     |
+|                    |                                                                                                            |
+|                    | "snat_addresses": [                                                                                        |
+|                    |                                                                                                            |
+|                    | "12.23.4.3"                                                                                                |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "snat_automap": true,                                                                                      |
+|                    |                                                                                                            |
+|                    | "snatpool_name": "",                                                                                       |
+|                    |                                                                                                            |
+|                    | "tcp_egress_profile_name": "/Common/f5-tcp-progressive",                                                   |
+|                    |                                                                                                            |
+|                    | "tcp_egress_topology": "lan",                                                                              |
+|                    |                                                                                                            |
+|                    | "tcp_ingress_profile_name": "/Common/f5-tcp-progressive",                                                  |
+|                    |                                                                                                            |
+|                    | "tcp_ingress_topology": "wan",                                                                             |
+|                    |                                                                                                            |
+|                    | "tcp_profile_name": "/Common/f5-tcp-progressive",                                                          |
+|                    |                                                                                                            |
+|                    | "tcp_topology": "wan",                                                                                     |
+|                    |                                                                                                            |
+|                    | "tenant_name": "Tenant2",                                                                                  |
+|                    |                                                                                                            |
+|                    | "tls_cert_name": "/Common/default.crt",                                                                    |
+|                    |                                                                                                            |
+|                    | "tls_client_profile_name": "/Common/serverssl",                                                            |
+|                    |                                                                                                            |
+|                    | "tls_key_name": "/Common/default.key",                                                                     |
+|                    |                                                                                                            |
+|                    | "tls_server_profile_name": "/Common/clientssl",                                                            |
+|                    |                                                                                                            |
+|                    | "virtual_address": "198.135.3.3",                                                                          |
+|                    |                                                                                                            |
+|                    | "virtual_port": 443,                                                                                       |
+|                    |                                                                                                            |
+|                    | "vlan_names": [],                                                                                          |
+|                    |                                                                                                            |
+|                    | "vlans_allow": true,                                                                                       |
+|                    |                                                                                                            |
+|                    | "vlans_enable": false,                                                                                     |
+|                    |                                                                                                            |
+|                    | "x_forwarded_for": true                                                                                    |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 202                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 202,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": {                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": "BIG-IP is processing the request. Please click 'Pending Tasks' icon to check the status of the |
+|                    |  pending request.",                                                                                        |
+|                    |                                                                                                            |
+|                    | "statuscode": 202,                                                                                         |
+|                    |                                                                                                            |
+|                    | "taskId": "0ec8ae38-7ea2-4b10-8523-a6c6705765ce"                                                           |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection. It supports Endpoint attach detach feature of the app using FAST. |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+
+deletefastapplication.json
+```````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Deletes the specified FAST application from BIG-IP                                                         |
++====================+============================================================================================================+
+| URL                | /deletefastapplication.json                                                                                |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "partition": "<Partition Name>",                                                                           |
+|                    |                                                                                                            |
+|                    | "application": "<Application Name>"                                                                        |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "partition": "Tenant45",                                                                                   |
+|                    |                                                                                                            |
+|                    | "application": "app23"                                                                                     |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 202                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 202,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": {                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": "BIG-IP is processing the request. Please click 'Pending Tasks' icon to check the status of the |
+|                    | pending request.",                                                                                         |
+|                    |                                                                                                            |
+|                    | "statuscode": 202,                                                                                         |
+|                    |                                                                                                            |
+|                    | "taskId": "0ec8ae38-7ea2-4b10-8523-a6c6705765ce"                                                           |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection.                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+deletefastpartition.json
+`````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Delete FAST partition from BIG-IP                                                                          |
++====================+============================================================================================================+
+| URL                | /deletefastpartition.json                                                                                  |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "partition": "<Partition Name>"                                                                            |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "partition": "Tenant45"                                                                                    |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <FAST/AS3 declaration JSON>                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 200,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": {                                                                                               |
+|                    |                                                                                                            |
+|                    | "as3data": [                                                                                               |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "applications": [                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "application": "Application_1",                                                                            |
+|                    |                                                                                                            |
+|                    | "epgExistsPoolList": [],                                                                                   |
+|                    |                                                                                                            |
+|                    | "json": {                                                                                                  |
+|                    |                                                                                                            |
+|                    | "class": "Application",                                                                                    |
+|                    |                                                                                                            |
+|                    | "serviceMain": {                                                                                           |
+|                    |                                                                                                            |
+|                    | "class": "Service_HTTP",                                                                                   |
+|                    |                                                                                                            |
+|                    | "pool": "web_pool",                                                                                        |
+|                    |                                                                                                            |
+|                    | "virtualAddresses": [                                                                                      |
+|                    |                                                                                                            |
+|                    | "10.0.1.10"                                                                                                |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | },                                                                                                         |
+|                    |                                                                                                            |
+|                    | "template": "http",                                                                                        |
+|                    |                                                                                                            |
+|                    | "web_pool": {                                                                                              |
+|                    |                                                                                                            |
+|                    | "class": "Pool",                                                                                           |
+|                    |                                                                                                            |
+|                    | "members": [                                                                                               |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "serverAddresses": [                                                                                       |
+|                    |                                                                                                            |
+|                    | "192.0.1.10",                                                                                              |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "servicePort": 80                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "monitors": [                                                                                              |
+|                    |                                                                                                            |
+|                    | "http",                                                                                                    |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "partition": "Sample_03"                                                                                   |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ],                                                                                                         |
+|                    |                                                                                                            |
+|                    | "message": "Partition Tenant1 deleted successfully"                                                        |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              | This is added in the Postman collection.                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+createfasttemplate.json
+`````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Create and install the FAST custom template on the BIG-IP                                                  |
++====================+============================================================================================================+
+| URL                | /createfasttemplate.json                                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name": "<Template Name>" ,                                                                                |
+|                    |                                                                                                            |
+|                    | "file": "<Upload .zip template set file>"                                                                  |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "name": "custom-http-template",                                                                            |
+|                    |                                                                                                            |
+|                    | "file": "custom-http-template.zip"                                                                         |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <Success Message>                                                                                 |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 200,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": Upload and Install of the bigip-fast-templates-service-discovery template set on BIG-IP         |
+|                    | 10.107.0.23 succeeded.                                                                                     |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+
+createfasttemplate.json
+`````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Create and install the service-discovery template on the BIG-IP to support the EP attach detach endpoint   |
+|                    | feature.                                                                                                   |
++====================+============================================================================================================+
+| URL                | /createfasttemplate.json                                                                                   |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name": "service-discovery"                                                                                |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "name": "service-discovery"                                                                                |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <Success message>                                                                                 |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 200,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": Upload and Install of the service-discovery template set on BIG-IP                              |
+|                    | 10.107.0.23 succeeded.                                                                                     |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+
+deletefasttemplateset.json
+```````````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Deletes FAST custom template set                                                                           |
++====================+============================================================================================================+
+| URL                | /deletefasttemplateset.json                                                                                |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                       |
+|                    |                                                                                                            |
+|                    | "name": "<Template Name>",                                                                                 |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23:443",                                                                                  |
+|                    |                                                                                                            |
+|                    | "name": "bigip-fast-templates-service-discovery/http"                                                      |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: <Success message>                                                                                 |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Response   | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "code": 200,                                                                                               |
+|                    |                                                                                                            |
+|                    | "message": bigip-fast-templates-service-discovery template set deleted successfully.                       |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+
+searchendpoint.json
+`````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Searches the Endpoint across logged in BIG-IPs                                                             |
++====================+============================================================================================================+
+| URL                | /searchendpoint.json                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "ip": "<IP>"                                                                                               |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "ip": "101.1.1.1"                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | message:{                                                                                                  |
+|                    |                                                                                                            |
+|                    | [                                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "bigip": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>",                                     |
+|                    |                                                                                                            |
+|                    | "fullpath": "<fullpath>",                                                                                  |
+|                    |                                                                                                            |
+|                    | "partition": "<Partition Name>",                                                                           |
+|                    |                                                                                                            |
+|                    | "type": "<VIP/Node>"                                                                                       |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | message:{                                                                                                  |
+|                    |                                                                                                            |
+|                    | [                                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "bigip": "10.107.0.23",                                                                                    |
+|                    |                                                                                                            |
+|                    | "fullpath": "/kctenant45/app23/101.1.1.1:443",                                                             |
+|                    |                                                                                                            |
+|                    | "partition": "tenant45",                                                                                   |
+|                    |                                                                                                            |
+|                    | "type": "VIP"                                                                                              |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
+
+searchendpoint.json
+`````````````````````
+
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Title              | Searches the Endpoint for the specified BIG-IP                                                             |
++====================+============================================================================================================+
+| URL                | /searchendpoint.json                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Method             | POST                                                                                                       |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Request Body       | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "ip": "<IP>",                                                                                              |
+|                    |                                                                                                            |
+|                    | "url": "<BIG-IP IP or BIG-IP IP:Port or Hostname or Hostname:Port>"                                        |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Example Request    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "ip": "101.1.1.1",                                                                                         |
+|                    |                                                                                                            |
+|                    | "url": "10.107.0.23"                                                                                       |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | message:{                                                                                                  |
+|                    |                                                                                                            |
+|                    | [                                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "fullpath": "<fullpath>",                                                                                  |
+|                    |                                                                                                            |
+|                    | "partition": "<Partition Name>",                                                                           |
+|                    |                                                                                                            |
+|                    |  "type": "<VIP/Node>"                                                                                      |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Success Response   | Code: 200                                                                                                  |
+|                    |                                                                                                            |
+|                    | message: {                                                                                                 |
+|                    |                                                                                                            |
+|                    | [                                                                                                          |
+|                    |                                                                                                            |
+|                    | {                                                                                                          |
+|                    |                                                                                                            |
+|                    | "fullpath": "/kctenant45/app23/101.1.1.1:443",                                                             |
+|                    |                                                                                                            |
+|                    | "partition": "tenant45",                                                                                   |
+|                    |                                                                                                            |
+|                    |  "type": "VIP"                                                                                             |
+|                    | }                                                                                                          |
+|                    |                                                                                                            |
+|                    | ]                                                                                                          |
+|                    |                                                                                                            |
+|                    | }                                                                                                          |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Error Response     | Code: 400                                                                                                  |
+|                    |                                                                                                            |
+|                    | Content: {error: Bad request}                                                                              |
++--------------------+------------------------------------------------------------------------------------------------------------+
+| Notes              |                                                                                                            |
++--------------------+------------------------------------------------------------------------------------------------------------+
+
 
 Dynamic Endpoint Attach Detach APIs
 -----------------------------------
@@ -3939,63 +5087,65 @@ getvlanstats.json
 |                    |                                                                                                                                                           |
 |                    | {                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | "vlans": [                                                                                                                                                |
+|                    | "vlan": "/Common/vlan-40",                                                                                                                                |
 |                    |                                                                                                                                                           |
-|                    | "/Common/vlan-22",                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | "/Common/vlan-21"                                                                                                                                         |
-|                    |                                                                                                                                                           |
-|                    | ],                                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | "exportedTenants": [],                                                                                                                                    |
-|                    |                                                                                                                                                           |
-|                    | "ldev": {                                                                                                                                                 |
-|                    |                                                                                                                                                           |
-|                    | "dn": "uni/tn-Demo/lDevVip-Demo-LogicalDevice",                                                                                                           |
-|                    |                                                                                                                                                           |
-|                    | "name": "Demo-LogicalDevice"                                                                                                                              |
-|                    |                                                                                                                                                           |
-|                    | },                                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | "tenant": {                                                                                                                                               |
-|                    |                                                                                                                                                           |
-|                    | "dn": "uni/tn-Demo",                                                                                                                                      |
-|                    |                                                                                                                                                           |
-|                    | "name": "Demo"                                                                                                                                            |
-|                    |                                                                                                                                                           |
-|                    | }                                                                                                                                                         |
-|                    |                                                                                                                                                           |
-|                    | },                                                                                                                                                        |
+|                    | "ldevs": [                                                                                                                                                |
 |                    |                                                                                                                                                           |
 |                    | {                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | "vlans": [                                                                                                                                                |
-|                    |                                                                                                                                                           |
-|                    | "/Common/vlan-300"                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | ],                                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | "exportedTenants": [],                                                                                                                                    |
-|                    |                                                                                                                                                           |
 |                    | "ldev": {                                                                                                                                                 |
 |                    |                                                                                                                                                           |
-|                    | "dn": "uni/tn-Student3/lDevVip-Student3-LogicalDevice",                                                                                                   |
+|                    | "name": "10.107.0.25_ldev",                                                                                                                               |
 |                    |                                                                                                                                                           |
-|                    | "name": "Student3-LogicalDevice"                                                                                                                          |
+|                    | "dn": "uni/tn-GS3_Tenant/lDevVip-10.107.0.25_ldev"                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | "tenant": {                                                                                                                                               |
 |                    |                                                                                                                                                           |
-|                    | "dn": "uni/tn-Student3",                                                                                                                                  |
+|                    | "name": "GS3_Tenant",                                                                                                                                     |
 |                    |                                                                                                                                                           |
-|                    | "name": "Student3"                                                                                                                                        |
+|                    | "dn": "uni/tn-GS3_Tenant"                                                                                                                                 |
+|                    |                                                                                                                                                           |
+|                    | },                                                                                                                                                        |
+|                    |                                                                                                                                                           |
+|                    | "exportedTenants": []                                                                                                                                     |
 |                    |                                                                                                                                                           |
 |                    | }                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | ],                                                                                                                                                        |
+|                    | "epgs": [],                                                                                                                                               |
+|                    |                                                                                                                                                           |
+|                    | "selfips": [                                                                                                                                              |
+|                    |                                                                                                                                                           |
+|                    | {                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | "traffic_group": "traffic-group-1",                                                                                                                       |
+|                    |                                                                                                                                                           |
+|                    | "allow_service": "all",                                                                                                                                   |
+|                    |                                                                                                                                                           |
+|                    | "address": "192.168.1.5/24"                                                                                                                               |
+|                    |                                                                                                                                                           |
+|                    | "name": "192.168.1.5",                                                                                                                                    |
+|                    |                                                                                                                                                           |
+|                    | }                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | ],                                                                                                                                                        |
+|                    |                                                                                                                                                           |
+|                    | "interfaces": [                                                                                                                                           |
+|                    |                                                                                                                                                           |
+|                    | {                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | "name": "1.2",                                                                                                                                            |
+|                    |                                                                                                                                                           |
+|                    | "tagged": "tagged"                                                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | }                                                                                                                                                         |
 |                    |                                                                                                                                                           |
 |                    | ]                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | }                                                                                                                                                         |
+|                    |]                                                                                                                                                          |
 +--------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Error Response     | Code: 4XX                                                                                                                                                 |
 |                    |                                                                                                                                                           |
@@ -4038,19 +5188,23 @@ getvipstats.json
 +--------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Example Response   | [                                                                                                                                                         |
 |                    |                                                                                                                                                           |
+|                    | "pool": {                                                                                                                                                 |
+|                    |                                                                                                                                                           |
 |                    | {                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | "vip": {                                                                                                                                                  |
-|                    |                                                                                                                                                           |
-|                    | "status": "offline",                                                                                                                                      |
-|                    |                                                                                                                                                           |
-|                    | "name": "http\_vs",                                                                                                                                       |
-|                    |                                                                                                                                                           |
-|                    | "address": "10.0.0.156:80",                                                                                                                               |
+|                    | "name": "pool12",                                                                                                                                         |
 |                    |                                                                                                                                                           |
 |                    | "partition": "Common",                                                                                                                                    |
 |                    |                                                                                                                                                           |
-|                    | "enabled": "enabled"                                                                                                                                      |
+|                    | "status": "unknown",                                                                                                                                      |
+|                    |                                                                                                                                                           |
+|                    | "enabled": "enabled",                                                                                                                                     |
+|                    |                                                                                                                                                           |
+|                    | "fullpath": "/Common/pool12",                                                                                                                             |
+|                    |                                                                                                                                                           |
+|                    | "monitor": null,                                                                                                                                          |
+|                    |                                                                                                                                                           |
+|                    | "loadBalancingMode": "round-robin"                                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
@@ -4058,61 +5212,87 @@ getvipstats.json
 |                    |                                                                                                                                                           |
 |                    | {                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | "status": "offline",                                                                                                                                      |
+|                    | "name": "192.168.1.2",                                                                                                                                    |
 |                    |                                                                                                                                                           |
-|                    | "name": "10.0.0.112:80",                                                                                                                                  |
+|                    | "address": "192.168.1.2",                                                                                                                                 |
 |                    |                                                                                                                                                           |
-|                    | "address": "10.0.0.112",                                                                                                                                  |
+|                    | "fqdn": null,                                                                                                                                             |
+|                    |                                                                                                                                                           |
+|                    | "partition": "Common",                                                                                                                                    |
+|                    |                                                                                                                                                           |
+|                    | "fullpath": "/Common/192.168.1.2:80",                                                                                                                     |
+|                    |                                                                                                                                                           |
+|                    | "status": "unknown",                                                                                                                                      |
+|                    |                                                                                                                                                           |
+|                    | "enabled": "enabled"                                                                                                                                      |
+|                    |                                                                                                                                                           |
+|                    | }                                                                                                                                                         |
+|                    |                                                                                                                                                           |
+|                    | ],                                                                                                                                                        |
+|                    |                                                                                                                                                           |
+|                    | "vip": {                                                                                                                                                  |
+|                    |                                                                                                                                                           |
+|                    | "name": "192.168.1.3",                                                                                                                                    |
+|                    |                                                                                                                                                           |
+|                    | "address": "192.168.1.3:80",                                                                                                                              |
+|                    |                                                                                                                                                           |
+|                    | "status": "unknown",                                                                                                                                      |
+|                    |                                                                                                                                                           |
+|                    | "enabled": "enabled",                                                                                                                                     |
+|                    |                                                                                                                                                           |
+|                    | "partition": "Common",                                                                                                                                    |
+|                    |                                                                                                                                                           |
+|                    | "fullpath": "/Common/192.168.1.3:80",                                                                                                                     |
+|                    |                                                                                                                                                           |
+|                    | "vipFullPath": "/Common/192.168.1.3",                                                                                                                     |
+|                    |                                                                                                                                                           |
+|                    | "ipProtocol": "tcp",                                                                                                                                      |
+|                    |                                                                                                                                                           |
+|                    | "sourceAddressTranslation": {                                                                                                                             |
+|                    |                                                                                                                                                           |
+|                    | "type": "none"                                                                                                                                            |
+|                    |                                                                                                                                                           |
+|                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | "epgs": [                                                                                                                                                 |
 |                    |                                                                                                                                                           |
 |                    | {                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | "tenant": "gstenant",                                                                                                                                     |
+|                    | "tenant": {                                                                                                                                               |
 |                    |                                                                                                                                                           |
-|                    | "app": "gsApp",                                                                                                                                           |
+|                    | "name": "GS3_Tenant",                                                                                                                                     |
 |                    |                                                                                                                                                           |
-|                    | "epg": "consumerEPG",                                                                                                                                     |
-|                    |                                                                                                                                                           |
-|                    | }                                                                                                                                                         |
-|                    |                                                                                                                                                           |
-|                    | ],                                                                                                                                                        |
-|                    |                                                                                                                                                           |
-|                    | "partition": "Common",                                                                                                                                    |
-|                    |                                                                                                                                                           |
-|                    | "enabled": "enabled"                                                                                                                                      |
+|                    | "dn": "uni/tn-GS3_Tenant"                                                                                                                                 |
 |                    |                                                                                                                                                           |
 |                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
-|                    | {                                                                                                                                                         |
+|                    | "app": {                                                                                                                                                  |
 |                    |                                                                                                                                                           |
-|                    | "status": "offline",                                                                                                                                      |
+|                    | "name": "Ap1",                                                                                                                                            |
 |                    |                                                                                                                                                           |
-|                    | "name": "10.0.0.140:80",                                                                                                                                  |
+|                    | "dn": "uni/tn-GS3_Tenant/ap-Ap1"                                                                                                                          |
 |                    |                                                                                                                                                           |
-|                    | "address": "10.0.0.140",                                                                                                                                  |
+|                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
-|                    | "partition": "Common",                                                                                                                                    |
+|                    | "epg": {                                                                                                                                                  |
 |                    |                                                                                                                                                           |
-|                    | "enabled": "enabled"                                                                                                                                      |
+|                    | "name": "EPG11",                                                                                                                                          |
+|                    |                                                                                                                                                           |
+|                    | "dn": "uni/tn-GS3_Tenant/ap-Ap1/epg-EPG11"                                                                                                                |
+|                    |                                                                                                                                                           |
+|                    | }                                                                                                                                                         |
 |                    |                                                                                                                                                           |
 |                    | }                                                                                                                                                         |
 |                    |                                                                                                                                                           |
 |                    | ],                                                                                                                                                        |
 |                    |                                                                                                                                                           |
-|                    | "pool": {                                                                                                                                                 |
+|                    | "ldevs": [],                                                                                                                                              |
 |                    |                                                                                                                                                           |
-|                    | "status": "offline",                                                                                                                                      |
-|                    |                                                                                                                                                           |
-|                    | "name": "http\_pool",                                                                                                                                     |
-|                    |                                                                                                                                                           |
-|                    | "partition": "Common",                                                                                                                                    |
-|                    |                                                                                                                                                           |
-|                    | "enabled": "enabled"                                                                                                                                      |
+|                    | "rules": null                                                                                                                                             |
 |                    |                                                                                                                                                           |
 |                    | }                                                                                                                                                         |
 |                    |                                                                                                                                                           |
-|                    | }                                                                                                                                                         |
+|                    | },                                                                                                                                                        |
 |                    |                                                                                                                                                           |
 |                    | ]                                                                                                                                                         |
 +--------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -4533,30 +5713,35 @@ getendpointdetails.json
 |                    | "message": {                                                          |
 |                    |                                                                       |
 |                    | "apic": [                                                             |
-|                    |                                                                       |
 |                    | {                                                                     |
 |                    |                                                                       |
-|                    | "encap": "vlan-364",                                                  |
+|                    | "encap": "vlan-320",                                                  |
 |                    |                                                                       |
-|                    | "epg": "Traffic_flow/AP1/EPG_external",                               |
+|                    | "epg": "Traffic_flow/LDevInst-                                        |
+|                    |         [uni/tn-Traffic_flow/lDevVip-BIGIP23]-ctx-vrf1/               |
+|                    |         G-BIGIP23ctxvrf1-N-BD-external-C-External",                   |
 |                    |                                                                       |
-|                    | "interface": {                                                        |
+|                    | "interfaces": [                                                       |
+|                    |                                                                       |
+|                    | {                                                                     |
 |                    |                                                                       |
 |                    | "adminSt": "Up",                                                      |
 |                    |                                                                       |
 |                    | "children": [],                                                       |
 |                    |                                                                       |
-|                    | "name": "eth1/2",                                                     |
+|                    | "name": "eth1/24",                                                    |
+|                    |                                                                       |
+|                    | "node": "Pod-1/Node-101",                                             |
 |                    |                                                                       |
 |                    | "operSt": "Up",                                                       |
 |                    |                                                                       |
 |                    | "type": "Not Aggregated"                                              |
 |                    |                                                                       |
-|                    | },                                                                    |
+|                    | }                                                                     |
 |                    |                                                                       |
-|                    | "mac": "00:50:56:BA:35:5A",                                           |
+|                    | ],                                                                    |
 |                    |                                                                       |
-|                    | "node": "Pod-1/Node-102"                                              |
+|                    | "mac": "00:23:E9:E8:02:85"                                            |
 |                    |                                                                       |
 |                    | }                                                                     |
 |                    |                                                                       |
@@ -4577,22 +5762,21 @@ getendpointdetails.json
 |                    | "status": "UP"                                                        |
 |                    |                                                                       |
 |                    | }                                                                     |
-|                    |                                                                       |
 |                    | ],                                                                    |
 |                    |                                                                       |
-|                    | "mac": "00:50:56:BA:35:5A",                                           |
+|                    | "isMasquerade": false,                                                |
+|                    |                                                                       |
+|                    | "mac": "00:23:E9:E8:02:85",                                           |
 |                    |                                                                       |
 |                    | "selfips": [                                                          |
 |                    |                                                                       |
 |                    | {                                                                     |
+|                    | "selfip": "192.168.11.59/24"                                          |
 |                    |                                                                       |
-|                    | "selfip": "192.168.11.40/24"                                          |
-|                    |                                                                       |
-|                    | },                                                                    |
+|                    | }                                                                     |
 |                    |                                                                       |
 |                    | ],                                                                    |
-|                    |                                                                       |
-|                    | "vlan": "413"                                                         |
+|                    | "vlan": "320"                                                         |
 |                    |                                                                       |
 |                    | }                                                                     |
 |                    |                                                                       |
@@ -4600,7 +5784,6 @@ getendpointdetails.json
 |                    |                                                                       |
 |                    | }                                                                     |
 |                    |                                                                       |
-|                    | }                                                                     |
 +--------------------+-----------------------------------------------------------------------+
 | Error Response     | Code: 400                                                             |
 |                    |                                                                       |

@@ -50,13 +50,14 @@ For details on supported versions, see :doc:`Support <support>`.
 
    pre-req.rst
    install.rst
-   l4-l7.rst
-   l2-l3.rst
    navigate.rst
+   l2-l3.rst
+   l4-l7.rst
    dynamic-ep.rst
    faults.rst
    background-services.rst
    teem.rst
+   searchip.rst
    tech-support-and-logs.rst
    faq.rst
    release-notes.rst

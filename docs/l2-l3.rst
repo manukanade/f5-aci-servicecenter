@@ -1,4 +1,4 @@
-Work with L2-L3 Stitching
+L2-L3 Network Management
 =========================
 
 In the top-left of L2-L3 tab, the :guilabel:`Logical Device` list filters devices based on high availability type (standalone or HA) and on device type (physical or virtual). If someone is logged in to a physical standalone BIG-IP device, the list shows only APIC logical devices of devtype :guilabel:`physical`, which have a single APIC Concrete device entry (CDEV) associated with them.
@@ -92,7 +92,7 @@ Create Default Gateway
 
 4. Click :guilabel:`Submit`.
 
-The default gateway is created on the BIG-IP device and is added to the application database. For an HA setup, the default gateway will automatically sync to the BIG-IP peer device.
+The default gateway is created on the BIG-IP device and is added to the application database. For an HA setup, the default gateway will automatically sync to the BIG-IP peer device. F5 ACI ServiceCenter v2.9 added support for a brownfield default gateway, where the default gateway automatically syncs to the FASC database once the user navigates to the L2-L3 tab. FASC added support to allow any Default Gateway name to be synced to the FASC database (in previous versions, the only supported default gateway name was **apic-default-gateway**). 
 
 Update Default Gateway
 ``````````````````````
@@ -186,17 +186,21 @@ Create a VLAN for HA setup
 
 4. Select one or more VLANs and move them to the Selected box.
 
-5. The details of all VLANs in the selected box are displayed below. The details consist of the APIC logical interface name.
-After selecting the VLANS click Manage Selected.
+5. The details of all VLANs in the selected box are displayed below. The details consist of the APIC logical interface name. After selecting the VLANS click Manage Selected.
 
 .. note::
     - A VLAN configuration form is displayed to add VLANs and information for one or more self IPs. For VLAN, the fields to be configured are: (1) Name (2) Tag (3) Interface.
     - If a configuration with 2 vCMP guests on separate vCMP hosts in HA configuration has to be supported, the 2 vCMP hosts will need to have the same VLAN name. Hence please add the same VLAN Name for such vCMP Hosts - guests of which hosts are going to form HA pair. The steps to do so are as follows:
-        - Create VLAN on vCMP host 1
-        - Copy VLAN name from host 1 and create VLAN on host 2 with same name
-        - Assign these VLANs to corresponding vCMP Guests vCMP guest 1 (on host 1) and vCMP guest 2 (on host 2)
-        - Create local and floating ips for these VLANs. VLAN and local Self IP should be present on both the BIG-IP devices of the HA pair before Floating Self IPs can be created.
-        - Click Submit.
+    
+      - Create a VLAN on vCMP host 1
+      
+      - Copy the VLAN name from host 1 and create VLAN on host 2 with same name
+      
+      - Assign these VLANs to the corresponding vCMP Guests vCMP guest 1 (on host 1) and vCMP guest 2 (on host 2)
+      
+      - Create local and floating IPs for these VLANs. The VLAN and local Self IP should be present on both the BIG-IP devices of the HA pair before Floating Self IPs can be created.
+      
+      - Click Submit.
 
 6. The BIG-IP device has the same VLANs configured as the APIC LDEV VLAN and L2-L3 stitching is complete.
 
@@ -212,11 +216,9 @@ Create Self IPs
 ```````````````````````````
 
 1. Click the L2-L3 Network Management tab.
+2. Select one or more available VLANs and move them to the Selected box. These VLANs are already present on the vCMP Guest BIG-IP device. After selecting the VLANS click Manage Selected.
 
-2. Select one or more available vlans and move them to the Selected box. These VLANs are already present on the vCMP Guest BIG-IP device
-After selecting the VLANS click Manage Selected.
-
-Note
+.. note::
     - A VLAN configuration form is displayed to add Self IPs. For self IPs, the fields to be configured are (1) Address (2) Netmask (3) Traffic-group (4) Port-lockdown.
     - The only options available for port lockdown are All, None, and Default.
     - ACI ServiceCenter doesn’t support custom port lockdown (which is supported by BIG-IP).
@@ -243,3 +245,45 @@ Delete Self IPs
 2. When prompted, click Confirm.
 
 The self IPs are deleted from the BIG-IP device, as well as from the application database.
+
+-------
+
+Frequently Asked Questions (FAQ)
+--------------------------------
+
+**Q. Why do I get an error for VLAN/self IP delete operation from the App?**
+
+This is a known issue for BIG-IP v 12.x. If a pool with nodes is associated with a self IP of the same subnet, the BIG-IP doesn’t allow a user to delete that self IP. As a result, the VLAN delete operation also fails with the error.
+
+**Workaround:**
+
+- Delete the corresponding pool member from the BIG-IP.
+
+- Perform the VLAN/self IP delete from the App.
+
+- Recreate the pool member on the BIG-IP.
+
+------
+
+**Q. When I try to stitch a VLAN tag, why do I see “VLAN not available for stitching”, and I am unable to configure the VLAN?**
+
+For a single BIG-IP device, after a VLAN tag is stitched for a particular logical device (say LDEV1), the same VLAN tag is not available for stitching again for a different Logical device (say LDEV2). This is because the VLAN tag is already present on the BIG-IP device and re-creating it for a different logical device is not allowed. In order to proceed with stitching, delete the original VLAN from the stitched LDEV, which is mentioned in this VLAN card’s info message. 
+
+.. note::
+   For a different BIG-IP login, this stitched VLAN tag will still be available for configuration. 
+
+------
+
+**Q. Why don’t I see the pre-existing BIG-IP VLANs and self IPs that have a different naming convention than the application?**
+
+The application does not support pre-existing VLANs that have a different naming convention than the app. It is able to detect VLANs that have been created and managed from the application only. 
+
+Although, after uninstalling and reinstalling the application, if the app database is lost, the application will be able to detect the previously created application VLANs by reading BIG-IP information and show them as Out-of-sync VLANs. The users will also be able to sync them to the application to rebuild the app database.
+
+The application displays APIC VLAN tags for a particular Logical Device Cluster on the L2-L3 stitching page. If there is an out-of-band VLAN with a different naming convention but the same VLAN tag on the BIG-IP device, the application detects it and shows it in the Out-of-sync information too. But the only action available for such a VLAN or self IP will be deletion of that object from the BIG-IP. It cannot sync to the application, since it has a different naming convention. The application also does not detect out-of-band information for any of the other VLAN tags that are not a part of APIC VLAN list. 
+
+-----
+
+**Q. What is the best way to delete LDEV from APIC?**
+
+Do not delete Logical devices from APIC directly. Instead, as a first step, delete self IPs, VLANs and routes from the BIG-IP device by using the application. When you are done, you can delete the Logical Device from APIC. This ensures there are no stale self IP, VLAN, and route entries on the BIG-IP.
